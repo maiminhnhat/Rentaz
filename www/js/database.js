@@ -145,4 +145,3 @@ function setRating() {
 function showRestaurant() {
 
 }
-qưdqwdqwdqwdqdqdqwdqwdqwdqwdqwd
