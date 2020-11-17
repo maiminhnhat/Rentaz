@@ -6,11 +6,12 @@ if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
     $(document).on("deviceready", onDeviceReady);
     $(document).on("pageshow", "#page-create", setRating);
     $(document).on("vclick", "#btn-upload", TakePictures);
+    $(document).on("pageshow", "#page-view-detail", listRestaurant);
 } else {
     onDeviceReady();
     TakePictures();
     setRating();
-
+    listRestaurant();
 }
 
 function transError(tx, err) {
@@ -142,6 +143,25 @@ function setRating() {
     });
 }
 
-function showRestaurant() {
+function listRestaurant() {
+    db.transaction(function(tx) {
+        var query = "SELECT * FROM Restaurant";
+        tx.executeSql(query, [], listRestaurantSuccess, transError);
+    });
+}
 
+function listRestaurantSuccess(tx, result) {
+    $("#page-view-detail #lv-restaurant-list").empty();
+    var newList = "<ul data-role='listview' id= 'lv-restaurant-list'>";
+
+    $.each(result.rows, function(i, item) {
+        newList += "<li class='ui-content'><a href='page-view-detail' data-details='" + JSON.stringify(item) + "'>" +
+            "   <img src='data:image/jpeg;base64," + item.Image + "'>" +
+            "    <h3 class='ui-li-heading'>Restaurant Name: " + item.Name + "</h3>" +
+            "</a></li>";
+    });
+
+    newList += "</ul>";
+
+    $("#page-view-detail #lv-restaurant-list").append(newList).listview("refresh").trigger("create");
 }
