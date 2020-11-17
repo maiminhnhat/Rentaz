@@ -18,7 +18,6 @@ function transError(tx, err) {
 
 }
 
-
 function onDeviceReady() {
     db.transaction(function(tx) {
         //restaurant
