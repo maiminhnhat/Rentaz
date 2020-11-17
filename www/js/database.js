@@ -5,9 +5,12 @@ var db = window.openDatabase("iRated", "1.0", "iRated", 200000);
 if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
     $(document).on("deviceready", onDeviceReady);
     $(document).on("pageshow", "#page-create", setRating);
+    $(document).on("vclick", "#btn-upload", TakePictures);
 } else {
     onDeviceReady();
+    TakePictures();
     setRating();
+
 }
 
 function transError(tx, err) {
@@ -19,6 +22,7 @@ function onDeviceReady() {
     db.transaction(function(tx) {
         //restaurant
         var query = "CREATE TABLE IF NOT EXISTS Restaurant(Id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "Image BLOB," +
             "Name TEXT NOT NULL UNIQUE," +
             "Price TEXT NOT NULL," +
             "Date TEXT NOT NULL," +
@@ -26,8 +30,8 @@ function onDeviceReady() {
             "Types TEXT NOT NULL," +
             "Service REAL," +
             "Cleanliness REAL," +
-            "Food REAL," +
-            "FOREIGN KEY (img_id) REFERENCES Image (Id) ON UPDATE CASCADE  ON DELETE CASCADE" + ")";
+            "Food REAL" +
+            ")";
 
         tx.executeSql(query, [], function() {
             alert("Create TABLE Restaurant successfully!");
@@ -40,26 +44,31 @@ function onDeviceReady() {
         tx.executeSql(query, [], function() {
             alert("Create TABLE Quote successfully!");
         }, transError);
-        //image
-        var query = "CREATE TABLE IF NOT EXISTS Image (Id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "Image BLOB," +
-            ")";
-        tx.executeSql(query, [], function() {
-            Toast("Create TABLE Image successfully!");
-        }, transError);
     });
 
 }
 
+function TakePictures() {
+    navigator.camera.getPicture(onSuccess, onFail, {
+        destinationType: Camera.DestinationType.DATA_URL
+    });
 
-function insertRestaurant(restaurant, image) {
+    function onSuccess(imageData) {
+        // Display taken image.
+        $("#page-create #image").attr("src", "data:image/jpeg;base64," + imageData);
+
+    }
+
+    function onFail(message) {
+        alert('Failed because: ' + message);
+    }
+}
+
+function insertRestaurant(restaurant) {
     db.transaction(function(tx) {
-        var query = `INSERT INTO Image(Image) VALUES (?)`;
-        tx.executeSql(query, [image.Image], function() {
-            alert(`Insert new image successfully!`);
-        }, transError);
-        var query = `INSERT INTO Restaurant (Name, Price, Date, Location, Types, Service ,Cleanliness, Food, img_id ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-        tx.executeSql(query, [restaurant.Name, restaurant.Price, restaurant.Date, restaurant.Location, restaurant.Types, restaurant.Service, restaurant.Cleanliness, restaurant.Food, restaurant.image_id], function() {
+        var img = $("#page-create #image").attr("src");
+        var query = `INSERT INTO Restaurant (Image, Name, Price, Date, Location, Types, Service ,Cleanliness, Food ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        tx.executeSql(query, [img, restaurant.Name, restaurant.Price, restaurant.Date, restaurant.Location, restaurant.Types, restaurant.Service, restaurant.Cleanliness, restaurant.Food], function() {
             alert(`Create new restaurant ${restaurant.Name} successfully!`);
         }, transError);
     });
