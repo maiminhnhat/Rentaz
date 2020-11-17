@@ -1,0 +1,7 @@
+body .homepage .logo img {
+    height: 75px;
+    margin-left: 160px;
+    position: absolute;
+    top: -7px;
+    left: 7px;
+}

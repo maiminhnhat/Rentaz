@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+
+    <title>Rentalz</title>
+
+    <link rel="stylesheet" type="text/css" href="css/style1.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+
+</head>
+
+<body>
+    <!-- Homepage -->
+    <div data-role="page" id="homepage" class="homepage">
+        <div data-role="panel" id="myPanel">
+            <div class="ui-field-contain">
+                <div id="card" style="display: none;">
+                    <img src="" alt="" id="userimg" style="vertical-align: middle; width: 100px;height: 100px;border-radius: 50%;transform: translate(62px, 10px); ">
+                    <h1 id="username" style="text-align: center;"></h1>
+                </div>
+
+                <button style="background-color: white; color:black; top:1px;font-size: 17px;border-radius: 30px;" id="login"><img src="img/logoG.png" style="width: 20px; transform: translate(-10px, 4px);"> Sign in with Google</button>
+                <button style="background-color: white; color:black; top:1px;font-size: 17px;border-radius: 30px;" id="logout"> Sign Out</button>
+            </div>
+            <div class="ui-field-contain">
+                <ul data-role="listview">
+                    <li data-icon="false">
+                        <a href="form.html" class="ui-btn" style="background-color: white; border-color: white; " rel="external">
+                            <i class="fa fa-home" aria-hidden="true" style="transform: translate(-9px);"></i>Post your apartment</a>
+                    </li>
+
+                    <li data-icon="false">
+                        <a href="" class="ui-btn" style="background-color: white; border-color: white;">
+                            <i class="fa fa-question-circle" aria-hidden="true" style="transform: translate(-9px);"></i> About us</a>
+                    </li>
+                    <li data-icon="false">
+                        <a href="" class="ui-btn" style="background-color: white; border-color: white;">
+                            <i class="fa fa-star" aria-hidden="true" style="transform: translate(-9px);"></i> Rate app</a>
+                    </li>
+                    <li data-icon="false">
+                        <a href="" class="ui-btn" style="background-color: white; border-color: white;">
+                            <i class="fa fa-share" aria-hidden="true" style="transform: translate(-9px);"></i> Share</a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+        <div data-role="header" style="background-color: skyblue;" class="ui-responsive ">
+            <p>
+                <a href="#myPanel"><img src="img/icons/menu-bar.png" style="height: 30px;"></a>
+            </p>
+
+            <div class="logo">
+                <a href="index.html" rel="external"><img src="img/logo.png" alt="logo"></a>
+            </div>
+        </div>
+
+        <div data-role="main" class="ui-content ui-responsive">
+            <div class="ui-field-contain " style=" box-shadow: 2px 4px 10px grey;; ">
+                <form>
+                    <label for="search-1" style="font-weight: bold;font-size: 20px; text-align: center; ">City:</label>
+                    <input type="search" name="search-1" id="search-1" value="" placeholder="Input your city">
+                </form>
+                <p style="font-weight: bold;font-size: 20px; text-align: center; ">Property type:</p>
+                <div class=" ui-grid-a ui-responsive">
+                    <div class="ui-block-a ui-responsive">
+                        <label class="container">House
+                        <input type="checkbox" checked="checked">
+                        <span class="checkmark"></span>
+                    </label>
+                    </div>
+                    <div class="ui-block-b ui-responsive">
+                        <label class="container ">Flat
+                        <input type="checkbox" checked="checked">
+                        <span class="checkmark"></span>
+                    </label>
+                    </div>
+                </div>
+                <button class="ui-btn ui-corner-all ui-shadow" style="background-color:skyblue; color:whitesmoke;font-size: 20px;border-radius: 30px;border-radius: 30px; ">Find apartment</button>
+
+            </div>
+
+            <div class="ui-field-contain" style=" box-shadow: 2px 4px 10px grey;margin-top: 10px; ">
+                <p style=" font-size: 36px ;text-align: center; font-weight: bold">Do you have property for rent?</p>
+                <a href="form.html" class="ui-btn ui-corner-all ui-shadow " style="background-color:skyblue; color:whitesmoke;font-size: 20px;border-radius: 30px;" rel="external">Post your apartment</a>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- Homepage -->
+    <script src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery.mobile-1.4.5.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="module" src="src/firebase.js"></script>
+    <script src="./bundle.js"></script>
+    <script type="text/javascript" src="js/auth.js"></script>
+
+    <script src="/node_modules/firebase/firebase-app.js"></script>
+    <script src="/node_modules/firebase/firebase-analytics.js"></script>
+    <script src="/node_modules/firebase/firebase-auth.js"></script>
+</body>
+
+
+
+
+</html>

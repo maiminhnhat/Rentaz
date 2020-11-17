@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <title>Rentalz</title>
+
+    <link rel="stylesheet" href="css/style1.css">
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/rating.css">
+    <link rel="stylesheet" href="css/jquery.rateyo.css">
+
+
+</head>
+
+<body>
+    <!-- Homepage -->
+    <div data-role="page" id="page-create" class="homepage">
+
+        <div data-role="header" style="background-color: skyblue; padding-bottom: 78px;" class="ui-responsive ">
+            <div class="logo">
+                <a href="index.html" rel="external"><img src="img/logo.png" alt="logo"></a>
+            </div>
+        </div>
+
+        <div data-role="main" class="ui-content ui-responsive ">
+            <form id="frm-create">
+                <input type="button" style="background-color:skyblue; color:whitesmoke;" id="btn-upload" value="Upload images">
+                <center><img id="image" width="50%"></center>
+                <label for="textinput-hide" class="ui-hidden-accessible">Restaurant Name:</label>
+                <input type="text" name="textinput-hide" id="name" placeholder="Restaurant Name:" value="" required>
+                <label for="textinput-hide" class="ui-hidden-accessible">Average meal price per person :</label>
+                <input type="text" name="textinput-hide" id="price" placeholder="Average meal price per person:" value="" required>
+                <label for="textinput-hide" class="ui-hidden-accessible">Location:</label>
+                <input type="text" name="textinput-hide" id="location" placeholder="Location:" value="" required>
+                <label for="textinput-hide" class="ui-hidden-accessible">Types:</label>
+                <input type="text" name="textinput-hide" id="type" placeholder="Types:" value="" required>
+                <label for="datetime-3" style="font-weight:bold">Date and time of the visit:</label>
+                <input type="datetime-local" data-clear-btn="false" name="datetime-3" id="date" required>
+                <table class="rating-star">
+                    <tr>
+                        <th>Service </th>
+                        <td>
+                            <div id="rating-service-star"></div>
+                        </td>
+                        <td>
+                            <div id="rating-service-point">0.0</div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Cleanliness </th>
+                        <td>
+                            <div id="rating-clean-star"></div>
+                        </td>
+                        <td>
+                            <div id="rating-clean-point">0.0</div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Food quality </th>
+                        <td>
+                            <div id="rating-food-star"></div>
+                        </td>
+                        <td>
+                            <div id="rating-food-point">0.0</div>
+                        </td>
+                    </tr>
+                </table>
+                <button class="ui-shadow ui-btn ui-corner-all" type="submit" id="submit">Post</button>
+            </form>
+
+            <form data-role="popup" id="frm-confirm">
+                <h2>Confirm information</h2>
+                <table>
+                    <tr>
+                        <td><strong>Name:</strong></td>
+                        <td id="name"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Price:</strong></td>
+                        <td id="price"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Location:</strong></td>
+                        <td id="location"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Date and time of the visit:</strong></td>
+                        <td id="date"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Types:</strong></td>
+                        <td id="type"></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Service:</strong></td>
+                        <td id="rating-service-point"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cleanliness:</strong></td>
+                        <td id="rating-clean-point"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Food quality:</strong></td>
+                        <td id="rating-food-point"></td>
+                    </tr>
+
+                </table>
+                <input type="submit" value="Confirm">
+                <input type="button" value="Edit" id="btn-edit">
+            </form>
+
+        </div>
+
+
+        <!-- Homepage -->
+
+    </div>
+
+
+
+
+
+
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.mobile-1.4.5.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script src="js/jquery.rateyo.js"></script>
+    <script src="js/database.js"></script>
+</body>
+
+
+
+
+</html>
