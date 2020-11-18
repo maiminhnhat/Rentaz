@@ -66,10 +66,10 @@ function TakePictures() {
 }
 
 function insertRestaurant(restaurant) {
-    db.transaction(function(tx) {
-        var img = $("#page-create #image").attr("src");
+    db.transaction(function(tx, imageData) {
+        var img = $("#page-create #image").attr("src", "data:image/jpeg;base64," + imageData);
         var query = `INSERT INTO Restaurant (Image, Name, Price, Date, Location, Types, Service ,Cleanliness, Food ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-        tx.executeSql(query, [img, restaurant.Name, restaurant.Price, restaurant.Date, restaurant.Location, restaurant.Types, restaurant.Service, restaurant.Cleanliness, restaurant.Food], function() {
+        tx.executeSql(query, [imageData, restaurant.Name, restaurant.Price, restaurant.Date, restaurant.Location, restaurant.Types, restaurant.Service, restaurant.Cleanliness, restaurant.Food], function() {
             alert(`Create new restaurant ${restaurant.Name} successfully!`);
         }, transError);
     });
@@ -155,10 +155,9 @@ function listRestaurantSuccess(tx, result) {
     var newList = "<ul data-role='listview' id= 'lv-restaurant-list'>";
 
     $.each(result.rows, function(i, item) {
-        newList += "<li class='ui-content'><a href='page-view-detail' data-details='" + JSON.stringify(item) + "'>" +
+        newList +=
             "   <img src='data:image/jpeg;base64," + item.Image + "'>" +
-            "    <h3 class='ui-li-heading'>Restaurant Name: " + item.Name + "</h3>" +
-            "</a></li>";
+            "    <h3 class='ui-li-heading'>Restaurant Name: " + item.Name + "</h3>";
     });
 
     newList += "</ul>";
