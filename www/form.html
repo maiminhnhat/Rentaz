@@ -41,8 +41,11 @@
                 <input type="text" name="textinput-hide" id="location" placeholder="Location:" value="" required>
                 <label for="textinput-hide" class="ui-hidden-accessible">Types:</label>
                 <input type="text" name="textinput-hide" id="type" placeholder="Types:" value="" required>
+                <label for="textinput-hide" class="ui-hidden-accessible">Note:</label>
+                <textarea cols="40" rows="8" name="textarea" id="note" placeholder="Note:" id="textarea"></textarea>
                 <label for="datetime-3" style="font-weight:bold">Date and time of the visit:</label>
                 <input type="datetime-local" data-clear-btn="false" name="datetime-3" id="date" required>
+
                 <table class="rating-star">
                     <tr>
                         <th>Service </th>
@@ -93,13 +96,18 @@
                         <td id="location"></td>
                     </tr>
                     <tr>
-                        <td><strong>Date and time of the visit:</strong></td>
-                        <td id="date"></td>
-                    </tr>
-                    <tr>
                         <td><strong>Types:</strong></td>
                         <td id="type"></td>
                     </tr>
+                    <tr>
+                        <td><strong>Note:</strong></td>
+                        <td id="note"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Date and time of the visit:</strong></td>
+                        <td id="date"></td>
+                    </tr>
+
 
                     <tr>
                         <td><strong>Service:</strong></td>

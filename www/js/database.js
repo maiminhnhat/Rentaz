@@ -29,6 +29,7 @@ function onDeviceReady() {
             "Date TEXT NOT NULL," +
             "Location TEXT NOT NULL," +
             "Types TEXT NOT NULL," +
+            "Note TEXT NOT NULL," +
             "Service REAL," +
             "Cleanliness REAL," +
             "Food REAL" +
@@ -37,14 +38,7 @@ function onDeviceReady() {
         tx.executeSql(query, [], function() {
             alert("Create TABLE Restaurant successfully!");
         }, transError);
-        //note
-        var query = "CREATE TABLE IF NOT EXISTS Note (Id INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "Note TEXT NOT NULL," +
-            "Restaurant_Id INTEGER NOT NULL," +
-            "FOREIGN KEY (Restaurant_Id) REFERENCES Restaurant (Id)" + ")";
-        tx.executeSql(query, [], function() {
-            alert("Create TABLE Quote successfully!");
-        }, transError);
+
     });
 
 }
@@ -66,10 +60,10 @@ function TakePictures() {
 }
 
 function insertRestaurant(restaurant) {
-    db.transaction(function(tx, imageData) {
-        var img = $("#page-create #image").attr("src", "data:image/jpeg;base64," + imageData);
-        var query = `INSERT INTO Restaurant (Image, Name, Price, Date, Location, Types, Service ,Cleanliness, Food ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-        tx.executeSql(query, [imageData, restaurant.Name, restaurant.Price, restaurant.Date, restaurant.Location, restaurant.Types, restaurant.Service, restaurant.Cleanliness, restaurant.Food], function() {
+    db.transaction(function(tx) {
+        var img = $("#page-create #image").attr("src");
+        var query = `INSERT INTO Restaurant (Image, Name, Price, Date, Location, Types, Note, Service ,Cleanliness, Food ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        tx.executeSql(query, [img, restaurant.Name, restaurant.Price, restaurant.Date, restaurant.Location, restaurant.Types, restaurant.Note, restaurant.Service, restaurant.Cleanliness, restaurant.Food], function() {
             alert(`Create new restaurant ${restaurant.Name} successfully!`);
         }, transError);
     });
@@ -89,6 +83,8 @@ $(document).on("submit", "#frm-create", function(e) {
     $("#page-create #frm-confirm #date").text($("#page-create #frm-create #date").val());
 
     $("#page-create #frm-confirm #type").text($("#page-create #frm-create #type").val());
+
+    $("#page-create #frm-confirm #note").text($("#page-create #frm-create #note").val());
 
     parseFloat($("#page-create #frm-confirm #rating-service-point").text($("#page-create #frm-create #rating-service-point").text()));
 
@@ -110,6 +106,7 @@ $(document).on("submit", "#frm-confirm", function(e) {
         "Location": $("#page-create #frm-confirm #location").text(),
         "Date": $("#page-create #frm-confirm #date").text(),
         "Types": $("#page-create #frm-confirm #type").text(),
+        "Note": $("#page-create #frm-confirm #note").text(),
         "Service": parseFloat($("#page-create #frm-confirm #rating-service-point").text()),
         "Cleanliness": parseFloat($("#page-create #frm-confirm #rating-clean-point").text()),
         "Food": parseFloat($("#page-create #frm-confirm #rating-food-point").text())
@@ -155,9 +152,11 @@ function listRestaurantSuccess(tx, result) {
     var newList = "<ul data-role='listview' id= 'lv-restaurant-list'>";
 
     $.each(result.rows, function(i, item) {
-        newList +=
-            "   <img src='data:image/jpeg;base64," + item.Image + "'>" +
-            "    <h3 class='ui-li-heading'>Restaurant Name: " + item.Name + "</h3>";
+        newList += "<li class='ui-content'><a href='page-view-detail' data-details='" + JSON.stringify(item) + "'>" +
+            "   <img style='height: 83px; width: 97px' src='data:image/jpeg;base64" + item.Image + "'>" +
+            "    <h3 class='ui-li-heading'>Restaurant Name: " + item.Name + "</h3>" +
+            "    <p class='ui-li-desc'>" + item.Note + "</p>" +
+            "</a></li>";
     });
 
     newList += "</ul>";
