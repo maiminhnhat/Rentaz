@@ -7,11 +7,17 @@ if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
     $(document).on("pageshow", "#page-create", setRating);
     $(document).on("vclick", "#btn-upload", TakePictures);
     $(document).on("pageshow", "#page-view-detail", listRestaurant);
+    $(document).on("vclick", "#page-view-detail #lv-restaurant-list li a", function() {
+        var restaurant = $(this).data("details");
+        listRestaurantDetail(restaurant);
+        alert("po");
+    })
 } else {
     onDeviceReady();
     TakePictures();
     setRating();
     listRestaurant();
+    listRestaurantDetail();
 }
 
 function transError(tx, err) {
@@ -152,7 +158,7 @@ function listRestaurantSuccess(tx, result) {
     var newList = "<ul data-role='listview' id= 'lv-restaurant-list'>";
 
     $.each(result.rows, function(i, item) {
-        newList += "<li class='ui-content'><a href='page-view-detail' data-details='" + JSON.stringify(item) + "'>" +
+        newList += "<li class='ui-content'><a href='#page-view-res-detail'  data-details='" + JSON.stringify(item) + "'>" +
             "   <img style='height: 83px; width: 97px' src='data:image/jpeg;base64" + item.Image + "'>" +
             "    <h3 class='ui-li-heading'>Restaurant Name: " + item.Name + "</h3>" +
             "    <p class='ui-li-desc'>" + item.Note + "</p>" +
@@ -162,4 +168,20 @@ function listRestaurantSuccess(tx, result) {
     newList += "</ul>";
 
     $("#page-view-detail #lv-restaurant-list").append(newList).listview("refresh").trigger("create");
+}
+
+
+function listRestaurantDetail(restaurant) {
+    $("#page-view-res-detail #info").empty();
+
+    $("#page-view-res-detail #info").append("<h1>" + restaurant.Name + "</h1>");
+    $("#page-view-res-detail #info").append("<img src='data:image/jpeg;base64" + restaurant.Image + "'>");
+    $("#page-view-res-detail #info").append("<p>Price: " + restaurant.Price + "</p>");
+    $("#page-view-res-detail #info").append("<p>Date: " + restaurant.Date + "</p>");
+    $("#page-view-res-detail #info").append("<p>Location: " + restaurant.Location + "</p>");
+    $("#page-view-res-detail #info").append("<p>Types: " + restaurant.Types + "</p>");
+    $("#page-view-res-detail #info").append("<p>Note: " + restaurant.Note + "</p>");
+
+
+
 }
