@@ -16,8 +16,31 @@
     <link rel="stylesheet" href="css/rating.css">
     <link rel="stylesheet" href="css/jquery.rateyo.css">
     <link rel="stylesheet" href="css/jqm-survival-kit.css">
-
-
+    <style>
+        #frm-confirm {
+            background-color: white;
+        }
+        
+        #submit {
+            border: none;
+            border-radius: 70px;
+            background-color: lightblue;
+        }
+        
+        #submit:active {
+            background-color: deepskyblue;
+        }
+        
+        #btn-edit {
+            border: none;
+            border-radius: 70px;
+            background-color: lightblue;
+        }
+        
+        #btn-edit:active {
+            background-color: deepskyblue;
+        }
+    </style>
 </head>
 
 <body>
@@ -82,7 +105,7 @@
             </form>
 
             <form data-role="popup" id="frm-confirm">
-                <h2>Confirm information</h2>
+                <h1 style="text-align: center;">Confirm information</h1>
                 <table>
                     <tr>
                         <td><strong>Name:</strong></td>
@@ -124,8 +147,9 @@
                     </tr>
 
                 </table>
-                <input type="submit" value="Confirm">
-                <input type="button" value="Edit" id="btn-edit">
+                <button class="ui-shadow ui-btn ui-corner-all" type="submit" id="submit">Confirm</button>
+                <button class="ui-shadow ui-btn ui-corner-all" type="button" id="btn-edit">Edit</button>
+
             </form>
 
         </div>
@@ -140,11 +164,11 @@
 
 
 
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery.mobile-1.4.5.js"></script>
-    <script type="text/javascript" src="cordova.js"></script>
-    <script src="js/jquery.rateyo.js"></script>
-    <script src="js/database.js"></script>
+    <script src=" js/jquery.js "></script>
+    <script src="js/jquery.mobile-1.4.5.js "></script>
+    <script type="text/javascript " src="cordova.js "></script>
+    <script src="js/jquery.rateyo.js "></script>
+    <script src="js/database.js "></script>
 </body>
 
 
