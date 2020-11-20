@@ -166,7 +166,7 @@ function listRestaurantSuccess(tx, result) {
 
     $.each(result.rows, function(i, restaurant) {
         newList += "<li class='ui-content'><a href='#page-view-res-detail'  data-details='" + JSON.stringify(restaurant) + "'style='margin-bottom:0px'>" +
-            "   <img  src='data:image/jpeg;base64" + restaurant.Image + "'style='height: 83px; width: 97px'>" +
+            "   <img  src='data:image/jpeg;base64" + restaurant.Image + "'style='height: 97px'>" +
             "    <h3 class='ui-li-heading'>Restaurant Name: " + restaurant.Name + "</h3>" +
             "    <p class='ui-li-desc'>" + restaurant.Note + "</p>" +
             "</a></li>";
