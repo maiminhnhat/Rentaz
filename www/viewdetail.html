@@ -23,7 +23,7 @@
         }
         
         .ui-li-heading {
-            color: #cc0000;
+            color: #030303;
         }
         
         .ui-li-desc {
@@ -33,6 +33,22 @@
             white-space: normal;
             height: 28px;
             margin-bottom: 0px;
+        }
+        
+        #page-view-res-detail #res_info #info p {
+            font-size: 30px;
+        }
+        
+        #rating-star {
+            font-size: 24px;
+        }
+        
+        #rating-star th {
+            text-align: left;
+        }
+        
+        #rating-star td {
+            padding: 0px 10px;
         }
     </style>
 
@@ -49,10 +65,11 @@
         </div>
 
         <div data-role="main" class="ui-content ui-responsive ">
+            <h1>Choose your favorite restaurant</h1>
+            <ul data-role="listview" id="lv-restaurant-list">
 
-            <ul data-role="listview" id="lv-restaurant-list"></ul>
+            </ul>
             <li data-role="list-divider" style="list-style-type: none">
-                <h1>Choose your favorite restaurant</h1>
             </li>
 
         </div>
@@ -60,7 +77,7 @@
             <nav data-role="navbar">
                 <ul>
                     <li>
-                        <a href="index.html" class="ui-btn-active ui-btn ui-icon-home ui-btn-icon-notext" rel="external"></a>
+                        <a href="index.html" class="ui-btn ui-btn ui-icon-home ui-btn-icon-notext" rel="external"></a>
                     </li>
                     <li>
                         <a href="viewdetail.html" class="ui-btn ui-icon-plus ui-btn-icon-notext" rel="external"></a>
@@ -73,29 +90,46 @@
     <!-- Page view Restaurant -->
     <div data-role="page" id="page-view-res-detail" class="homepage">
 
-        <div data-role="header" style="background-color: skyblue; padding-bottom: 78px;" class="ui-responsive ">
-            <div class="logo">
-                <a href="index.html" rel="external"><img src="img/logo.png" alt="logo"></a>
+        <div data-role="header" style="background-color: skyblue; " class="ui-responsive" id="header">
+            <a href="#page-view-detail" style="background-color: skyblue; border-color: skyblue; margin-top: -4px;" class="ui-btn ui-btn ui-icon-forward ui-btn-icon-notext"></a>
+
+            <h1 id="resname"></h1>
+
+        </div>
+
+        <div data-role="main" class="ui-content ui-responsive" id="res_info">
+            <div id="image">
             </div>
+            <div id="info">
+            </div>
+            <div>
+                <table id="rating-star">
+                    <thead>
+                        <tr>
+
+                        </tr>
+                        <tr>
+
+                        </tr>
+                        <tr>
+
+                        </tr>
+                    </thead>
+
+
+                </table>
+            </div>
+
+
         </div>
-
-        <div data-role="main" class="ui-content ui-responsive ">
-
-            <div id="info"></div>
+    </div>
 
 
-
-
-        </div>
-
-
-
-
-        <script src="js/jquery.js"></script>
-        <script src="js/jquery.mobile-1.4.5.js"></script>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script src="js/jquery.rateyo.js"></script>
-        <script src="js/database.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.mobile-1.4.5.js"></script>
+    <script src="cordova.js"></script>
+    <script src="js/jquery.rateyo.js"></script>
+    <script src="js/database.js"></script>
 </body>
 
 

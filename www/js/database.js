@@ -10,14 +10,16 @@ if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
     $(document).on("vclick", "#page-view-detail #lv-restaurant-list li a", function() {
         var restaurant = $(this).data("details");
         listRestaurantDetail(restaurant);
-        alert("po");
+
     })
+
 } else {
     onDeviceReady();
     TakePictures();
     setRating();
     listRestaurant();
     listRestaurantDetail();
+
 }
 
 function transError(tx, err) {
@@ -71,6 +73,10 @@ function insertRestaurant(restaurant) {
         var query = `INSERT INTO Restaurant (Image, Name, Price, Date, Location, Types, Note, Service ,Cleanliness, Food ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
         tx.executeSql(query, [img, restaurant.Name, restaurant.Price, restaurant.Date, restaurant.Location, restaurant.Types, restaurant.Note, restaurant.Service, restaurant.Cleanliness, restaurant.Food], function() {
             alert(`Create new restaurant ${restaurant.Name} successfully!`);
+            $(document).on("pageshow", "#homepage", function() {
+                window.location.href('index.html');
+            });
+
         }, transError);
     });
 
@@ -122,7 +128,8 @@ $(document).on("submit", "#frm-confirm", function(e) {
     insertRestaurant(restaurant);
 
     $("#page-create #frm-confirm").popup("close");
-    $("#page-create #frm-create").trigger("reset")
+    $("#page-create #frm-create").trigger("reset");
+
 
 });
 $(document).on("vclick", "#btn-edit", function() {
@@ -157,11 +164,11 @@ function listRestaurantSuccess(tx, result) {
     $("#page-view-detail #lv-restaurant-list").empty();
     var newList = "<ul data-role='listview' id= 'lv-restaurant-list'>";
 
-    $.each(result.rows, function(i, item) {
-        newList += "<li class='ui-content'><a href='#page-view-res-detail'  data-details='" + JSON.stringify(item) + "'>" +
-            "   <img style='height: 83px; width: 97px' src='data:image/jpeg;base64" + item.Image + "'>" +
-            "    <h3 class='ui-li-heading'>Restaurant Name: " + item.Name + "</h3>" +
-            "    <p class='ui-li-desc'>" + item.Note + "</p>" +
+    $.each(result.rows, function(i, restaurant) {
+        newList += "<li class='ui-content'><a href='#page-view-res-detail'  data-details='" + JSON.stringify(restaurant) + "'style='margin-bottom:0px'>" +
+            "   <img  src='data:image/jpeg;base64" + restaurant.Image + "'style='height: 83px; width: 97px'>" +
+            "    <h3 class='ui-li-heading'>Restaurant Name: " + restaurant.Name + "</h3>" +
+            "    <p class='ui-li-desc'>" + restaurant.Note + "</p>" +
             "</a></li>";
     });
 
@@ -172,16 +179,31 @@ function listRestaurantSuccess(tx, result) {
 
 
 function listRestaurantDetail(restaurant) {
-    $("#page-view-res-detail #info").empty();
+    $("#page-view-res-detail #header #resname").empty();
+    $("#page-view-res-detail #res_info #image").empty();
+    $("#page-view-res-detail #res_info #info").empty();
+    $("#page-view-res-detail #res_info #rating-star").empty();
 
-    $("#page-view-res-detail #info").append("<h1>" + restaurant.Name + "</h1>");
-    $("#page-view-res-detail #info").append("<img src='data:image/jpeg;base64" + restaurant.Image + "'>");
-    $("#page-view-res-detail #info").append("<p>Price: " + restaurant.Price + "</p>");
-    $("#page-view-res-detail #info").append("<p>Date: " + restaurant.Date + "</p>");
-    $("#page-view-res-detail #info").append("<p>Location: " + restaurant.Location + "</p>");
-    $("#page-view-res-detail #info").append("<p>Types: " + restaurant.Types + "</p>");
-    $("#page-view-res-detail #info").append("<p>Note: " + restaurant.Note + "</p>");
-
-
-
+    $("#page-view-res-detail #header #resname").append("<b>" + restaurant.Name + "</b>");
+    $("#page-view-res-detail #res_info #image").append("<img src='data:image/jpeg;base64 " + restaurant.Image + "'style='width:100%'>");
+    $("#page-view-res-detail #res_info #info").append("<p>Note: " + restaurant.Note + "</p>");
+    $("#page-view-res-detail #res_info #info").append("<p>Price: " + restaurant.Price + "</p>");
+    $("#page-view-res-detail #res_info #info").append("<p>Date: " + restaurant.Date + "</p>");
+    $("#page-view-res-detail #res_info #info").append("<p>Location: " + restaurant.Location + "</p>");
+    $("#page-view-res-detail #res_info #info").append("<p>Types: " + restaurant.Types + "</p><hr>");
+    parseFloat($("#page-view-res-detail #res_info #rating-star").append("<tr><th>Service:</th><td id='total-rating-service-star'></td> <td> " + restaurant.Service + " </td>  </tr>"));
+    parseFloat($("#page-view-res-detail #res_info #rating-star").append("<tr> <th>Cleanliness:</th><td id='total-rating-cleanliness-star'></td> <td> " + restaurant.Cleanliness + " </td>  </tr>"));
+    parseFloat($("#page-view-res-detail #res_info #rating-star").append("<tr> <th>Food:</th><td id='total-rating-food-star'></td> <td> " + restaurant.Food + " </td>  </tr>"));
+    $("#total-rating-service-star").rateYo({
+        rating: restaurant.Service,
+        readOnly: true
+    });
+    $("#total-rating-cleanliness-star").rateYo({
+        rating: restaurant.Cleanliness,
+        readOnly: true
+    });
+    $("#total-rating-food-star").rateYo({
+        rating: restaurant.Food,
+        readOnly: true
+    });
 }
