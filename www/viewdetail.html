@@ -91,9 +91,22 @@
     <div data-role="page" id="page-view-res-detail" class="homepage">
 
         <div data-role="header" style="background-color: skyblue; " class="ui-responsive" id="header">
-            <a href="#page-view-detail" style="background-color: skyblue; border-color: skyblue; margin-top: -4px;" class="ui-btn ui-btn ui-icon-forward ui-btn-icon-notext"></a>
-
+            <a href="#page-view-detail" style="background-color: skyblue; border-color: skyblue; margin-top: -4px; font-size: 27px;" class="ui-btn ui-btn ui-icon-forward ui-btn-icon-notext"></a>
             <h1 id="resname"></h1>
+            <a href="#popupMenu" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a" style="background-color: skyblue;margin-top: 7px;border: none; color: white;">Actions...</a>
+            <div data-role="popup" id="popupMenu" data-theme="light">
+
+                <ul data-role="listview" data-inset="true" style="min-width:210px;">
+
+                    <li data-role="list-divider">Choose an action</li>
+
+                    <li><button type="button" id="btn-update">Update</button></li>
+
+                    <li><button type="button" id="btn-delete">Delete</button></li>
+
+
+                </ul>
+            </div>
 
         </div>
 

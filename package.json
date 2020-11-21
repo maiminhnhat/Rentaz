@@ -21,6 +21,7 @@
         "cordova-plugin-dialogs": "^2.0.2",
         "cordova-plugin-vibration": "^3.1.1",
         "cordova-plugin-whitelist": "^1.3.4",
+        "cordova-universal-links-plugin": "^1.2.1",
         "webpack": "^4.44.1",
         "webpack-cli": "^3.3.12"
     },
@@ -28,14 +29,14 @@
         "plugins": {
             "cordova-plugin-whitelist": {},
             "cordova-plugin-buildinfo": {},
-            "cordova-universal-links-plugin": {},
             "cordova-plugin-browsertab": {},
             "cordova-plugin-inappbrowser": {},
             "cordova-plugin-dialogs": {},
             "cordova-plugin-vibration": {},
             "cordova-plugin-camera": {
                 "ANDROID_SUPPORT_V4_VERSION": "27.+"
-            }
+            },
+            "cordova-universal-links-plugin": {}
         },
         "platforms": [
             "android",

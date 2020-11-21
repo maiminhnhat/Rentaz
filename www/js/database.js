@@ -5,7 +5,8 @@ var db = window.openDatabase("iRated", "1.0", "iRated", 200000);
 if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
     $(document).on("deviceready", onDeviceReady);
     $(document).on("pageshow", "#page-create", setRating);
-    $(document).on("vclick", "#btn-upload", TakePictures);
+    $(document).on("vclick", "#btn-take", TakePictures);
+    $(document).on("vclick", "#btn-upload", UploadPicture);
     $(document).on("pageshow", "#page-view-detail", listRestaurant);
     $(document).on("vclick", "#page-view-detail #lv-restaurant-list li a", function() {
         var restaurant = $(this).data("details");
@@ -16,6 +17,7 @@ if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
 } else {
     onDeviceReady();
     TakePictures();
+    UploadPicture();
     setRating();
     listRestaurant();
     listRestaurantDetail();
@@ -54,6 +56,25 @@ function onDeviceReady() {
 function TakePictures() {
     navigator.camera.getPicture(onSuccess, onFail, {
         destinationType: Camera.DestinationType.DATA_URL
+    });
+
+    function onSuccess(imageData) {
+        // Display taken image.
+        $("#page-create #image").attr("src", "data:image/jpeg;base64," + imageData);
+
+    }
+
+    function onFail(message) {
+        alert('Failed because: ' + message);
+    }
+}
+
+function UploadPicture() {
+    navigator.camera.getPicture(onSuccess, onFail, {
+        quality: 50,
+        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+        allowEdit: true,
+        destinationType: Camera.DestinationType.FILE_URI
     });
 
     function onSuccess(imageData) {
@@ -182,8 +203,8 @@ function listRestaurantDetail(restaurant) {
     $("#page-view-res-detail #res_info #image").empty();
     $("#page-view-res-detail #res_info #info").empty();
     $("#page-view-res-detail #res_info #rating-star").empty();
-
-    $("#page-view-res-detail #header #resname").append("<b>" + restaurant.Name + "</b>");
+    var ratingTotal = ((restaurant.Service + restaurant.Cleanliness + restaurant.Food) / 3).toFixed(1);
+    $("#page-view-res-detail #header #resname").append("<b style='font-size:30px'>" + restaurant.Name + "</b>");
     $("#page-view-res-detail #res_info #image").append("<img src='data:image/jpeg;base64 " + restaurant.Image + "'style='width:100%'>");
     $("#page-view-res-detail #res_info #info").append("<p>Note: " + restaurant.Note + "</p>");
     $("#page-view-res-detail #res_info #info").append("<p>Price: " + restaurant.Price + "</p>");
@@ -193,6 +214,7 @@ function listRestaurantDetail(restaurant) {
     parseFloat($("#page-view-res-detail #res_info #rating-star").append("<tr><th>Service:</th><td id='total-rating-service-star'></td> <td> " + restaurant.Service + " </td>  </tr>"));
     parseFloat($("#page-view-res-detail #res_info #rating-star").append("<tr> <th>Cleanliness:</th><td id='total-rating-cleanliness-star'></td> <td> " + restaurant.Cleanliness + " </td>  </tr>"));
     parseFloat($("#page-view-res-detail #res_info #rating-star").append("<tr> <th>Food:</th><td id='total-rating-food-star'></td> <td> " + restaurant.Food + " </td>  </tr>"));
+    parseFloat($("#page-view-res-detail #res_info #rating-star").append("<tr> <th>Total:</th><td id='total-rating-star'></td> <td> " + ratingTotal + " </td>  </tr>"));
     $("#total-rating-service-star").rateYo({
         rating: restaurant.Service,
         readOnly: true
@@ -203,6 +225,10 @@ function listRestaurantDetail(restaurant) {
     });
     $("#total-rating-food-star").rateYo({
         rating: restaurant.Food,
+        readOnly: true
+    });
+    $("#total-rating-star").rateYo({
+        rating: ratingTotal,
         readOnly: true
     });
 }
