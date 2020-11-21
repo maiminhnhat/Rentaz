@@ -73,9 +73,8 @@ function insertRestaurant(restaurant) {
         var query = `INSERT INTO Restaurant (Image, Name, Price, Date, Location, Types, Note, Service ,Cleanliness, Food ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
         tx.executeSql(query, [img, restaurant.Name, restaurant.Price, restaurant.Date, restaurant.Location, restaurant.Types, restaurant.Note, restaurant.Service, restaurant.Cleanliness, restaurant.Food], function() {
             alert(`Create new restaurant ${restaurant.Name} successfully!`);
-            $(document).on("pageshow", "#homepage", function() {
-                window.location.href('index.html');
-            });
+            window.location.replace('index.html');
+
 
         }, transError);
     });
