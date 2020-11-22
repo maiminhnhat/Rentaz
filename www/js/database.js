@@ -219,12 +219,20 @@ function listRestaurantDetail(restaurant) {
     $("#page-view-res-detail #res_info #rating-star").empty();
     var ratingTotal = ((restaurant.Service + restaurant.Cleanliness + restaurant.Food) / 3).toFixed(1);
     $("#page-view-res-detail #header #resname").append("<b style='font-size:30px'>" + restaurant.Name + "</b>");
+
+
+
+
     $("#page-view-res-detail #res_info #image").append("<img src='data:image/jpeg;base64 " + restaurant.Image + "'style='width:100%'>");
-    $("#page-view-res-detail #res_info #info").append("<p>Note: " + restaurant.Note + "</p>");
-    $("#page-view-res-detail #res_info #info").append("<p>Price: " + restaurant.Price + "</p>");
-    $("#page-view-res-detail #res_info #info").append("<p>Date: " + restaurant.Date + "</p>");
-    $("#page-view-res-detail #res_info #info").append("<p>Location: " + restaurant.Location + "</p>");
-    $("#page-view-res-detail #res_info #info").append("<p>Types: " + restaurant.Types + "</p><hr>");
+    $("#page-view-res-detail #res_info #info").append("<h2 style='font-size:30px;text-align:center;'>" + restaurant.Name + "</h2>");
+    $("#page-view-res-detail #res_info #info").append("<p style='text-align:center;font-size:20px'> " + restaurant.Location + "</p>");
+    $("#page-view-res-detail #res_info #info").append("<p style='text-align:center;font-size:20px'> " + restaurant.Price + "</p><hr>");
+    $("#page-view-res-detail #res_info #info").append("<p>Note: " + restaurant.Note + "</p><hr>");
+
+
+
+
+
     parseFloat($("#page-view-res-detail #res_info #rating-star").append("<tr><th>Service:</th><td id='total-rating-service-star'></td> <td> " + restaurant.Service + " </td>  </tr>"));
     parseFloat($("#page-view-res-detail #res_info #rating-star").append("<tr> <th>Cleanliness:</th><td id='total-rating-cleanliness-star'></td> <td> " + restaurant.Cleanliness + " </td>  </tr>"));
     parseFloat($("#page-view-res-detail #res_info #rating-star").append("<tr> <th>Food:</th><td id='total-rating-food-star'></td> <td> " + restaurant.Food + " </td>  </tr>"));
