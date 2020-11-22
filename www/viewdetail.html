@@ -66,7 +66,10 @@
 
         <div data-role="main" class="ui-content ui-responsive ">
             <h1>Choose your favorite restaurant</h1>
-            <ul data-role="listview" id="lv-restaurant-list">
+            <form>
+                <input data-type="search" name="search-1" id="search-1" value="" placeholder="Input your restaurant">
+            </form>
+            <ul data-role="listview" id="lv-restaurant-list" data-filter="true" data-input="#search-1">
 
             </ul>
             <li data-role="list-divider" style="list-style-type: none">
