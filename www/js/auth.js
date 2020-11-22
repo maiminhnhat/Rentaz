@@ -54,7 +54,6 @@ function initApp() {
     // Listening for auth state changes.
     // [START authstatelistener]
     firebase.auth().onAuthStateChanged(function(user) {
-
         if (user) {
             console.log(user.photoURL)
                 // User is signed in.
@@ -67,11 +66,15 @@ function initApp() {
             document.getElementById("userimg").setAttribute("src", photoURL);
             document.getElementById("username").innerHTML = displayName;
             $("#card").show();
+            $("#post-contain").show();
+            $("#login-contain").hide();
         } else {
             // User is signed out.
             $("#login").show();
             $("#card").hide();
             $("#logout").hide();
+            $("#post-contain").hide();
+            $("#login-contain").show();
 
 
         }

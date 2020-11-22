@@ -15,7 +15,21 @@
     <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css">
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
     <link rel="stylesheet" href="css/jqm-survival-kit.css">
-
+    <style>
+        #btn-form {
+            background-color: whitesmoke;
+            color: black;
+            font-size: 20px;
+            border-radius: 30px;
+            width: 213px;
+            margin-left: 60px;
+        }
+        
+        #btn-form:active {
+            background-color: deepskyblue;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
@@ -35,7 +49,7 @@
                 <ul data-role="listview">
                     <li data-icon="false">
                         <a href="form.html" class="ui-btn" style="background-color: white; border-color: white; " rel="external">
-                            <i class="fa fa-home" aria-hidden="true" style="transform: translate(-9px);"></i>Post your apartment</a>
+                            <i class="fa fa-home" aria-hidden="true" style="transform: translate(-9px);"></i>Post your review</a>
                     </li>
 
                     <li data-icon="false">
@@ -67,13 +81,18 @@
 
         <div data-role="main" class="ui-content ui-responsive">
 
-
-            <div class="ui-field-contain" style=" box-shadow: 2px 4px 10px grey;margin-top: 10px; ">
+            <div class="ui-field-contain" id="post-contain" style=" box-shadow: 0px 1px 10px grey;margin-top: 10px; ">
+                <img src="img/apart.jpg" style="height: 276px; padding-left: 6px; " alt="">
                 <p style=" font-size: 36px ;text-align: center; font-weight: bold">Post your review restaurant</p>
-                <a href="form.html" class="ui-btn ui-corner-all ui-shadow " style="background-color:skyblue; color:whitesmoke;font-size: 20px;border-radius: 30px;" rel="external">Post your review</a>
+                <a href="form.html" id="btn-form" class="ui-btn ui-corner-all ui-shadow " rel="external">Post your review</a>
 
             </div>
+            <div class="ui-field-contain" id="login-contain" style=" box-shadow: 0px 1px 10px grey;margin-top: 10px; ">
+                <img src="img/eating.jpg" style="height: 206px; padding-left: 6px;" alt="">
+                <p style=" font-size: 33px ;text-align: center; font-weight: bold">Do you want to review restaurant that you came?</p>
+                <button style="background-color: white; color:black; top:1px;font-size: 17px;border-radius: 30px; width: 269px; margin-left: 54px;" id="login"><img src="img/logoG.png" style="width: 20px; transform: translate(-10px, 4px);"> Sign in with Google</button>
 
+            </div>
 
         </div>
         <div data-role="footer" data-position="fixed">
