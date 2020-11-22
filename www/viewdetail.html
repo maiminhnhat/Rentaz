@@ -99,17 +99,15 @@
                 <ul data-role="listview" data-inset="true" style="min-width:210px;">
 
                     <li data-role="list-divider">Choose an action</li>
+                    <li> <a class="ui-btn ui-btn-inline" id="btn-delete">Delete</a></li>
+                    <li> <a class="ui-btn ui-btn-inline" href="#updatedialog" id="btn-update" data-id="0">Update</a></li>
 
-                    <li><button type="button" id="btn-update">Update</button></li>
-
-                    <li><button type="button" id="btn-delete">Delete</button></li>
 
 
                 </ul>
             </div>
 
         </div>
-
         <div data-role="main" class="ui-content ui-responsive" id="res_info">
             <div id="image">
             </div>
@@ -136,7 +134,64 @@
 
         </div>
     </div>
+    <!-- Page Update -->
+    <div data-role="dialog" id="updatedialog">
+        <div data-role="header" class="ui-responsive ">
+            <h1>Update product</h1>
+        </div>
+        <div data-role="main" class="ui-content ui-responsive">
+            <form id="frm-update">
+                <input type="button" style="background-color:skyblue; color:whitesmoke;" id="btn-retake" value="Take images">
+                <input type="button" style="background-color:skyblue; color:whitesmoke;" id="btn-reupload" value="Upload images">
+                <center><img id="image" width="50%"></center>
+                <label for="textinput-hide" class="ui-hidden-accessible">Restaurant Name:</label>
+                <input type="text" name="textinput-hide" id="name" placeholder="Restaurant Name:" value="" required>
+                <label for="textinput-hide" class="ui-hidden-accessible">Average meal price per person :</label>
+                <input type="text" name="textinput-hide" id="price" placeholder="Average meal price per person:" value="" required>
+                <label for="textinput-hide" class="ui-hidden-accessible">Location:</label>
+                <input type="text" name="textinput-hide" id="location" placeholder="Location:" value="" required>
+                <label for="textinput-hide" class="ui-hidden-accessible">Types:</label>
+                <input type="text" name="textinput-hide" id="type" placeholder="Types:" value="" required>
+                <label for="textinput-hide" class="ui-hidden-accessible">Note:</label>
+                <textarea cols="40" rows="8" name="textarea" id="note" placeholder="Note:" id="textarea"></textarea>
+                <label for="date" style="font-weight:bold">Date and time of the visit:</label>
+                <input type="date" data-clear-btn="false" name="date" id="date" required>
 
+                <table class="rating-star">
+                    <tr>
+                        <th>Service</th>
+                        <td>
+                            <div id="rating-service-star"></div>
+                        </td>
+                        <td>
+                            <div id="rating-service-point">0.0</div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Cleanliness</th>
+                        <td>
+                            <div id="rating-clean-star"></div>
+                        </td>
+                        <td>
+                            <div id="rating-clean-point">0.0</div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Food quality</th>
+                        <td>
+                            <div id="rating-food-star"></div>
+                        </td>
+                        <td>
+                            <div id="rating-food-point">0.0</div>
+                        </td>
+                    </tr>
+                </table>
+                <button class="ui-shadow ui-btn ui-corner-all" type="submit" id="btn-setnew">Update</button>
+            </form>
+        </div>
+    </div>
 
     <script src="js/jquery.js"></script>
     <script src="js/jquery.mobile-1.4.5.js"></script>

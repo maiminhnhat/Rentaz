@@ -2,27 +2,41 @@ $(window).on("orientationchange", function(e) {
     alert(e.orientation);
 });
 var db = window.openDatabase("iRated", "1.0", "iRated", 200000);
-if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
-    $(document).on("deviceready", onDeviceReady);
-    $(document).on("pageshow", "#page-create", setRating);
-    $(document).on("vclick", "#btn-take", TakePictures);
-    $(document).on("vclick", "#btn-upload", UploadPicture);
-    $(document).on("pageshow", "#page-view-detail", listRestaurant);
-    $(document).on("vclick", "#page-view-detail #lv-restaurant-list li a", function() {
-        var restaurant = $(this).data("details");
-        listRestaurantDetail(restaurant);
 
-    })
+{
+    if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
+        $(document).on("deviceready", onDeviceReady);
+        $(document).on("pageshow", "#page-create", setRating);
+        $(document).on("vclick", "#btn-take", TakePictures);
+        $(document).on("vclick", "#btn-upload", UploadPicture);
+        $(document).on("pageshow", "#page-view-detail", listRestaurant);
+        $(document).on("vclick", "#page-view-detail #lv-restaurant-list li a", function() {
+            var restaurant = $(this).data("details");
+            listRestaurantDetail(restaurant);
 
-} else {
-    onDeviceReady();
-    TakePictures();
-    UploadPicture();
-    setRating();
-    listRestaurant();
-    listRestaurantDetail();
+        });
+        $(document).on("vclick", "#btn-update", function() {
+            var restaurant_id = $(this).data("id");
+            GetUpdate(restaurant_id);
+        });
+        $(document).on("pageshow", "#updatedialog", setRating);
+        $(document).on("vclick", "#btn-retake", RetakePictures);
+        $(document).on("vclick", "#btn-reupload", ReuploadPicture);
 
+    } else {
+        onDeviceReady();
+        TakePictures();
+        UploadPicture();
+        setRating();
+        listRestaurant();
+        listRestaurantDetail();
+        GetUpdate();
+        RetakePictures();
+        ReuploadPicture();
+    }
 }
+
+
 
 function transError(tx, err) {
     console.log(err);
@@ -231,4 +245,99 @@ function listRestaurantDetail(restaurant) {
         rating: ratingTotal,
         readOnly: true
     });
+    $("#btn-update").attr("data-id", restaurant.Id);
 }
+
+function RetakePictures() {
+    navigator.camera.getPicture(onSuccess, onFail, {
+        destinationType: Camera.DestinationType.DATA_URL
+    });
+
+    function onSuccess(imageData) {
+        // Display taken image.
+        $("#updatedialog #image").attr("src", "data:image/jpeg;base64," + imageData);
+
+    }
+
+    function onFail(message) {
+        alert('Failed because: ' + message);
+    }
+}
+
+function ReuploadPicture() {
+    navigator.camera.getPicture(onSuccess, onFail, {
+        quality: 50,
+        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+        allowEdit: true,
+        destinationType: Camera.DestinationType.FILE_URI
+    });
+
+    function onSuccess(imageData) {
+        // Display taken image.
+        $("#updatedialog #image").attr("src", "data:image/jpeg;base64," + imageData);
+
+    }
+
+    function onFail(message) {
+        alert('Failed because: ' + message);
+    }
+}
+
+function UpdateRestaurant(restaurant) {
+    var img = $("#updatedialog #image").attr("src");
+    db.transaction(function(tx) {
+        var query = `UPDATE Restaurant SET Image = ?, Name =?, Price=?, Date=?, Location=?, Types=?, Note=?, Service=?, Cleanliness=?, Food=?  WHERE Id=?`;
+        tx.executeSql(query, [img, restaurant.Name, restaurant.Price, restaurant.Date, restaurant.Location, restaurant.Types, restaurant.Note, restaurant.Service, restaurant.Cleanliness, restaurant.Food, restaurant.Id], function() {
+            alert(`Update the restaurant successfully!`);
+        }, transError);
+
+    });
+}
+
+function GetUpdate(restaurant_id) {
+    db.transaction(function(tx) {
+        var query = `SELECT * FROM Restaurant WHERE Id = ${restaurant_id}`;
+        tx.executeSql(query, [], GetUpdateSuccess, transError);
+    });
+}
+
+function GetUpdateSuccess(tx, result) {
+    var restaurant = result.rows.item(0);
+
+    $("#updatedialog #frm-update #image").attr("src", restaurant.Image);
+    $("#updatedialog #frm-update #name").val(restaurant.Name);
+    $("#updatedialog #frm-update #price").val(restaurant.Price);
+    $("#updatedialog #frm-update #location").val(restaurant.Location);
+    $("#updatedialog #frm-update #date").val(restaurant.Date);
+    $("#updatedialog #frm-update #type").val(restaurant.Types);
+    $("#updatedialog #frm-update #note").val(restaurant.Note);
+    $("#updatedialog #frm-update #rating-service-point").val(restaurant.Service);
+    $("#updatedialog #frm-update #rating-clean-point").val(restaurant.Cleanliness);
+    $("#updatedialog #frm-update #rating-food-point").val(restaurant.Food);
+}
+
+
+
+
+$(document).on("submit", "#frm-update", function(e) {
+    e.preventDefault();
+    var restaurant = {
+        "Id": $("#btn-update").data("id"),
+        "Image": $("#updatedialog #frm-update #image").attr("src"),
+        "Name": $("#updatedialog #frm-update #name").val(),
+        "Price": $("#updatedialog #frm-update #price").val(),
+        "Location": $("#updatedialog #frm-update #location").val(),
+        "Date": $("#updatedialog #frm-update #date").val(),
+        "Types": $("#updatedialog #frm-update #type").val(),
+        "Note": $("#updatedialog #frm-update #note").val(),
+        "Service": parseFloat($("#updatedialog #frm-update #rating-service-point").html()),
+        "Cleanliness": parseFloat($("#updatedialog #frm-update #rating-clean-point").html()),
+        "Food": parseFloat($("#updatedialog #frm-update #rating-food-point").html())
+
+    }
+    UpdateRestaurant(restaurant);
+    $("#updatedialog").dialog("close");
+
+
+
+});
