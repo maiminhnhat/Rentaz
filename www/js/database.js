@@ -19,9 +19,14 @@ var db = window.openDatabase("iRated", "1.0", "iRated", 200000);
             var restaurant_id = $(this).data("id");
             GetUpdate(restaurant_id);
         });
+        $(document).on("vclick", "#btn-delete", function() {
+            var restaurant_id = $(this).data("id");
+            GetDelete(restaurant_id);
+        });
         $(document).on("pageshow", "#updatedialog", setRating);
         $(document).on("vclick", "#btn-retake", RetakePictures);
         $(document).on("vclick", "#btn-reupload", ReuploadPicture);
+
 
     } else {
         onDeviceReady();
@@ -33,6 +38,8 @@ var db = window.openDatabase("iRated", "1.0", "iRated", 200000);
         GetUpdate();
         RetakePictures();
         ReuploadPicture();
+        deleteRestaurant();
+        GetDelete();
     }
 }
 
@@ -254,6 +261,7 @@ function listRestaurantDetail(restaurant) {
         readOnly: true
     });
     $("#btn-update").attr("data-id", restaurant.Id);
+    $("#btn-delete").attr("data-id", restaurant.Id);
 }
 
 function RetakePictures() {
@@ -349,3 +357,20 @@ $(document).on("submit", "#frm-update", function(e) {
 
 
 });
+
+function GetDelete(restaurant_id) {
+    db.transaction(function(tx) {
+        var query = `SELECT * FROM Restaurant WHERE Id = ${restaurant_id}`;
+        tx.executeSql(query, [], deleteRestaurant, transError);
+    });
+}
+
+function deleteRestaurant(restaurant_id) {
+    alert(restaurant_id);
+    db.transaction(function(tx) {
+        var query = `DELETE FROM Restaurant WHERE Id=${restaurant_id}`;
+        tx.executeSql(query, [], function() {
+            alert(`Delete successfully`);
+        }, transError);
+    });
+}

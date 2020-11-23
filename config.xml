@@ -23,11 +23,11 @@
         <allow-intent href="itms-apps:*" />
     </platform>
      <universal-links>
-    <host name="https://rentlz.page.link" scheme="https" />
+    <host name="https://rentlz.page.link/zXbp" scheme="https" />
     <host name="https://project-rental-5593e.firebaseapp.com/" scheme="https">
         <path url="/__/auth/callback"/>
     </host>
 </universal-links>
-<preference name="AndroidLaunchMode" value="singleTask" />
+<preference name="AndroidLaunchMode" value="singleInstance" />
 <preference name="android-minSdkVersion" value="29" />
 </widget>
