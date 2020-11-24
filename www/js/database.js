@@ -19,14 +19,15 @@ var db = window.openDatabase("iRated", "1.0", "iRated", 200000);
             var restaurant_id = $(this).data("id");
             GetUpdate(restaurant_id);
         });
-        $(document).on("vclick", "#btn-delete", function() {
-            var restaurant_id = $(this).data("id");
-            GetDelete(restaurant_id);
-        });
+
+        // $(document).on("vclick", "#btn-delete", function() {
+        //     var restaurant_id = $(this).data("id");
+        //     GetDelete(restaurant_id);
+        // })
         $(document).on("pageshow", "#updatedialog", setRating);
         $(document).on("vclick", "#btn-retake", RetakePictures);
         $(document).on("vclick", "#btn-reupload", ReuploadPicture);
-
+        $(document).on("vclick", "#btn-delete", deleteRestaurant);
 
     } else {
         onDeviceReady();
@@ -39,7 +40,6 @@ var db = window.openDatabase("iRated", "1.0", "iRated", 200000);
         RetakePictures();
         ReuploadPicture();
         deleteRestaurant();
-        GetDelete();
     }
 }
 
@@ -244,6 +244,7 @@ function listRestaurantDetail(restaurant) {
     parseFloat($("#page-view-res-detail #res_info #rating-star").append("<tr> <th>Cleanliness:</th><td id='total-rating-cleanliness-star'></td> <td> " + restaurant.Cleanliness + " </td>  </tr>"));
     parseFloat($("#page-view-res-detail #res_info #rating-star").append("<tr> <th>Food:</th><td id='total-rating-food-star'></td> <td> " + restaurant.Food + " </td>  </tr>"));
     parseFloat($("#page-view-res-detail #res_info #rating-star").append("<tr> <th>Total:</th><td id='total-rating-star'></td> <td> " + ratingTotal + " </td>  </tr>"));
+
     $("#total-rating-service-star").rateYo({
         rating: restaurant.Service,
         readOnly: true
@@ -260,8 +261,9 @@ function listRestaurantDetail(restaurant) {
         rating: ratingTotal,
         readOnly: true
     });
+    $("#page-view-res-detail #res_info #button").append(`<button class="ui-btn" onclick="deleteRestaurant(${restaurant.Id});">Delete</button>`);
     $("#btn-update").attr("data-id", restaurant.Id);
-    $("#btn-delete").attr("data-id", restaurant.Id);
+
 }
 
 function RetakePictures() {
@@ -309,6 +311,7 @@ function UpdateRestaurant(restaurant) {
 
     });
 }
+$(document).on("vclick")
 
 function GetUpdate(restaurant_id) {
     db.transaction(function(tx) {
@@ -358,19 +361,24 @@ $(document).on("submit", "#frm-update", function(e) {
 
 });
 
-function GetDelete(restaurant_id) {
+function deleteRestaurant(id) {
     db.transaction(function(tx) {
-        var query = `SELECT * FROM Restaurant WHERE Id = ${restaurant_id}`;
-        tx.executeSql(query, [], deleteRestaurant, transError);
-    });
-}
-
-function deleteRestaurant(restaurant_id) {
-    alert(restaurant_id);
-    db.transaction(function(tx) {
-        var query = `DELETE FROM Restaurant WHERE Id=${restaurant_id}`;
+        var query = `DELETE FROM Restaurant WHERE Id=${id}`;
         tx.executeSql(query, [], function() {
             alert(`Delete successfully`);
         }, transError);
     });
 }
+
+// function GetDelete(restaurant_id) {
+//     alert(restaurant_id)
+//     db.transaction(function(tx) {
+//         var query = `SELECT * FROM Restaurant WHERE Id = ${restaurant_id}`;
+//         tx.executeSql(query, [], DeleteSuccess, transError);
+//     });
+// }
+
+// function DeleteSuccess(restaurant) {
+//     deleteRestaurant(restaurant);
+//     // $("deleteconfirm").dialog("close");
+// }
