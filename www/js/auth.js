@@ -5,6 +5,8 @@ $(document).on("vclick", "#logout", SignOut);
 /**
  * Handles the sign in button press.
  */
+// This code is made by Firebase
+
 function SignIn() {
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithRedirect(provider).then(function() {
