@@ -32,7 +32,7 @@ var db = window.openDatabase("iRated", "1.0", "iRated", 200000);
         setRating();
         listRestaurant();
         listRestaurantDetail();
-        // GetUpdate();
+        GetUpdate();
         RetakePictures();
         ReuploadPicture();
         deleteRestaurant();
