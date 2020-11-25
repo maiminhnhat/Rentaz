@@ -29,5 +29,4 @@
     </host>
 </universal-links>
 <preference name="AndroidLaunchMode" value="singleInstance" />
-<preference name="android-minSdkVersion" value="29" />
 </widget>
