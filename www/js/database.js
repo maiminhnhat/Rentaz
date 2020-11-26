@@ -1,10 +1,10 @@
-$(window).on("orientationchange", function(e) {
-    alert(e.orientation);
-});
 var db = window.openDatabase("iRated", "1.0", "iRated", 200000);
 
 {
     if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
+        $(window).on("orientationchange", function(e) {
+            alert(e.orientation);
+        });
         $(document).on("deviceready", onDeviceReady);
         $(document).on("pageshow", "#page-create", setRating);
         $(document).on("vclick", "#btn-take", TakePictures);
