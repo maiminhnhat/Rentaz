@@ -328,9 +328,21 @@ function GetUpdateSuccess(tx, result) {
     $("#updatedialog #frm-update #date").val(restaurant.Date);
     $("#updatedialog #frm-update #type").val(restaurant.Types);
     $("#updatedialog #frm-update #note").val(restaurant.Note);
-    $("#updatedialog #frm-update #rating-service-point").val(restaurant.Service);
-    $("#updatedialog #frm-update #rating-clean-point").val(restaurant.Cleanliness);
-    $("#updatedialog #frm-update #rating-food-point").val(restaurant.Food);
+    parseFloat($("#updatedialog #frm-update  #rating-service-point").text(restaurant.Service));
+    parseFloat($("#updatedialog #frm-update  #rating-clean-point").text(restaurant.Cleanliness));
+    parseFloat($("#updatedialog #frm-update  #rating-food-point").text(restaurant.Food));
+    $("#rating-service-star").rateYo({
+        rating: restaurant.Service,
+        WriteOnly: true
+    });
+    $("#rating-clean-star").rateYo({
+        rating: restaurant.Cleanliness,
+        WriteOnly: true
+    });
+    $("#rating-food-star").rateYo({
+        rating: restaurant.Food,
+        WriteOnly: true
+    });
 }
 
 

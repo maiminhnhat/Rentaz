@@ -28,7 +28,6 @@
         "plugins": {
             "cordova-plugin-whitelist": {},
             "cordova-plugin-buildinfo": {},
-            "cordova-plugin-browsertab": {},
             "cordova-plugin-inappbrowser": {},
             "cordova-plugin-dialogs": {},
             "cordova-plugin-vibration": {},
@@ -42,9 +41,7 @@
         ]
     },
     "dependencies": {
-        "cordova-plugin-browsertab": "0.2.0",
         "cordova-plugin-buildinfo": "4.0.0",
-        "cordova-plugin-compat": "1.2.0",
         "cordova-plugin-inappbrowser": "4.0.0",
         "cordova-universal-links-plugin-fix": "1.2.1",
         "firebase": "^7.24.0"
